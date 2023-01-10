@@ -27,7 +27,7 @@ def scraper():
 def converter():
     global converted
     print('\n')
-    process = subprocess.Popen(['python', 'webm>wav.py'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    process = subprocess.Popen(['python', 'webm_to_wav.py'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     while process.poll() is None:
          # Read all of the output from the subprocess
         output = process.stdout.read(2048)
