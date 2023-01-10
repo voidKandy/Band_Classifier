@@ -3,7 +3,7 @@ import os
 import time
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui  import QIcon
-from PyQt5.QtWidgets import QComboBox, QApplication, QFileDialog, QLabel, QPushButton, QWidget
+from PyQt5.QtWidgets import QBoxLayout, QLineEdit, QComboBox, QDialog, QApplication, QFileDialog, QLabel, QPushButton, QWidget
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
@@ -19,12 +19,9 @@ for root, dirs, files in os.walk('spec_graphs/'):
         name, extension = os.path.splitext(ef)
         mod_name = name + '.wav'
         existing_files.append(mod_name)
-#print(existing_files)
-
 
 # Widget init 
 class mainwidget(QWidget):
-
     def __init__(self):
         super().__init__()
         self.title = '|SPECTROGRAPH|'
@@ -37,17 +34,28 @@ class mainwidget(QWidget):
     # Label
         self.label = QLabel("Select a sound file:")
     # Check folders in spec_graphs
-        spec_graphs = os.listdir('../spec_graphs')
+        spec_graphs = '../spec_graphs'
+        parent = os.listdir(spec_graphs)
+        self.categories= []
+    # Assing folders to categories
+        for filename in parent:
+            if filename[0] == '.':
+                continue
+            self.categories.append(filename)
     # Drop Down Band list
         self.bandselect = QComboBox(self)
-        self.bandselect.addItem('voidkandy')
-        self.bandselect.addItem('radiohead')
-        self.bandselect.addItem('king_gizzard')
+        for cat in self.categories:
+            self.bandselect.addItem(cat)
         self.bandselect.hide()
-        self.bandselect.move(85,40)
+        self.bandselect.move(65,40)
+    # New category button
+        self.new_button = QPushButton('+', self)
+        self.new_button.hide()
+        self.new_button.clicked.connect(self.new_clck)
+        self.new_button.move(200,40)
     # Upload Button
         self.up_button = QPushButton("Choose Sounds", self)
-        self.up_button.move(85,15)
+        self.up_button.move(83,15)
         self.up_button.clicked.connect(self.upload_clck)
         self.show()
     # Specgraph Button
@@ -55,11 +63,41 @@ class mainwidget(QWidget):
         self.spcg_button.move(80,5)
         self.spcg_button.clicked.connect(self.spcg_clck)
         self.spcg_button.hide()
-    # exit File Button
+    # Exit File Button
         self.exit_button = QPushButton("Exit", self)
         self.exit_button.move(110,15)
         self.exit_button.clicked.connect(self.exit_clck)
         self.exit_button.hide()
+
+    # New folder dialog
+    class new_folder(QDialog):
+        def __init__(self, mainwidget, categories, parent=None):
+            super().__init__(parent)
+
+            self.mainwidget = mainwidget
+            self.categories = categories
+
+            name_label = QLabel('Name Folder')
+            name_line = QLineEdit()
+            name_button = QPushButton('Make Folder')
+
+            layout = QBoxLayout(QBoxLayout.TopToBottom)
+            layout.addWidget(name_label)
+            layout.addWidget(name_line)
+            layout.addWidget(name_button)
+            self.setLayout(layout)
+
+            def name_clck():
+                new_folder_name = name_line.text()
+                os.mkdir(new_folder_name)
+                self.mainwidget.bandselect.addItem(new_folder_name)
+                os.chdir('../data_pipeline')
+                self.accept()
+            name_button.clicked.connect(name_clck)    
+    def new_clck(self):
+        os.chdir('../spec_graphs')
+        new_folder_dialog = mainwidget.new_folder(self, self.categories)
+        new_folder_dialog.exec() 
         
     # Upload Clcked
     def upload_clck(self):
@@ -76,13 +114,14 @@ class mainwidget(QWidget):
         self.prex_checks = []
         for f in self.sound_folder: 
             file_name = os.path.basename(f)
-            print(file_name)
+            #print(file_name)
             if file_name in existing_files:
                 print(f'Removing {file_name}')
                 continue
             else:
-                print("Passed check")
+                #print("Passed check")
                 self.prex_checks.append(f)
+        self.new_button.show()
         self.bandselect.show()
 
 
