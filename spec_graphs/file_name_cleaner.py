@@ -12,5 +12,5 @@ for f in folders:
         if ".wav" in filename:
             newname = filename.replace('.wav','')
             os.rename(os.path.join(path, filename), os.path.join(path, newname))
-            print('[DONE]')
+        print('[DONE]')   
 
