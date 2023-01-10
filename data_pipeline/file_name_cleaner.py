@@ -1,7 +1,13 @@
 import os
 import re
 
-folders = ['voidkandy','radiohead', 'king_gizzard']
+os.chdir('../spec_graphs')
+parent = os.listdir()
+folders = []
+for fol in parent:
+    if fol[0] == '.':
+        continue
+    folders.append(fol)
 for f in folders:
     path = f
     for filename in os.listdir(f):
@@ -12,5 +18,5 @@ for f in folders:
         if ".wav" in filename:
             newname = filename.replace('.wav','')
             os.rename(os.path.join(path, filename), os.path.join(path, newname))
-        print('[DONE]')   
+print('[DONE]')   
 

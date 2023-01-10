@@ -36,6 +36,8 @@ class mainwidget(QWidget):
         self.setWindowTitle(self.title)
     # Label
         self.label = QLabel("Select a sound file:")
+    # Check folders in spec_graphs
+        spec_graphs = os.listdir('../spec_graphs')
     # Drop Down Band list
         self.bandselect = QComboBox(self)
         self.bandselect.addItem('voidkandy')
