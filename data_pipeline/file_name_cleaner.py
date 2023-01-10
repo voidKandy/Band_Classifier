@@ -1,7 +1,7 @@
 import os
 import re
 
-os.chdir('../spec_graphs')
+os.chdir('./spec_graphs')
 parent = os.listdir()
 folders = []
 for fol in parent:

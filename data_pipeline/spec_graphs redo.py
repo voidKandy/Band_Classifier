@@ -1,6 +1,6 @@
 import os
 
-spec_graphs = '../spec_graphs'
+spec_graphs = './spec_graphs'
 parent = os.listdir(spec_graphs)
 categories= []
 for filename in parent:

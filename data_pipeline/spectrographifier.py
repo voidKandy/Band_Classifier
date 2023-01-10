@@ -37,7 +37,7 @@ class mainwidget(QWidget):
     # Label
         self.label = QLabel("Select a sound file:")
     # Check folders in spec_graphs
-        spec_graphs = os.listdir('../spec_graphs')
+        spec_graphs = os.listdir("./spec_graphs")
     # Drop Down Band list
         self.bandselect = QComboBox(self)
         self.bandselect.addItem('voidkandy')
@@ -111,7 +111,7 @@ class mainwidget(QWidget):
             librosa.display.specshow(Xdb, sr=sr)
         # Assign Variable for later and show next button
             self.img_plt = plt
-            self.img_plt.savefig(f'../spec_graphs/{chosen_band}/{file_name}.png', transparent=True, bbox_inches='tight')
+            self.img_plt.savefig(f'./spec_graphs/{chosen_band}/{file_name}.png', transparent=True, bbox_inches='tight')
             self.img_plt.close()
             time.sleep(10)
         self.spcg_button.hide()
