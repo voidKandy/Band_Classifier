@@ -93,10 +93,10 @@ if scraped == True:
         ]:
             print(line)
             time.sleep(0.08)
-        print("          #####"+Fore.YELLOW+'DATA'+Fore.GREEN+"#####")
-        print("         ####"+Fore.YELLOW+'WAVIFIED'+Fore.GREEN+"####")
+        print("          #####"+Fore.YELLOW+'DATA'+Fore.CYAN+"#####")
+        print("         ####"+Fore.YELLOW+'WAVIFIED'+Fore.CYAN+"####")
         for line in [
-         "         ################",
+         Fore.GREEN+"         ################",
          "          #####"+Fore.YELLOW+'PUSH'+Fore.GREEN+"#####",
          "           ###"+Fore.YELLOW+'ENTER'+Fore.GREEN+"####",
          "             ########",
