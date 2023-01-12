@@ -24,7 +24,7 @@ for root, dirs, files in os.walk('spec_graphs/'):
 class mainwidget(QWidget):
     def __init__(self):
         super().__init__()
-        self.title = '|SPECTROGRAPH|'
+        self.title = '|SPECTROGRAPHIFIER|'
         self.initUI()
        
     # Window
@@ -132,6 +132,8 @@ class mainwidget(QWidget):
         for f in self.prex_checks:
         # Get file name
             file_name, file_ext = os.path.splitext(f)
+            if ".wav" in file_name:
+                file_name = file_name.replace('.wav','')
             file_name = os.path.basename(f)
         # Skip files that are not audio files
             if file_ext not in ('.wav', '.mp3', '.flac', '.aac'):
@@ -154,12 +156,12 @@ class mainwidget(QWidget):
             self.img_plt.close()
             time.sleep(10)
         self.spcg_button.hide()
+        self.new_button.hide()
         self.exit_button.show()
         print("[Done]") 
     
     # Exit Clcked
     def exit_clck(self):
-
         sys.exit()
 
 

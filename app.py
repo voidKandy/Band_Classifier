@@ -1,4 +1,3 @@
-!pip install huggingface_hub["fastai"]
 from fastai.vision.all import *
 import gradio as gr
 
@@ -11,4 +10,4 @@ image = gr.inputs.Image(shape=(192,192))
 label = gr.outputs.Label()
 
 intf = gr.Interface(fn=classify_specs, inputs=image, outputs=label)
-intf.launch(inline=False)
+intf.launch(inline=False, share=True)
